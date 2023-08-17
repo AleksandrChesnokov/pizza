@@ -1,15 +1,16 @@
 import logo from "../img/logo.png";
 import magnifier from "../img/free-icon-magnifier-2319177.png";
 import basket from "../img/free-icon-shopping-cart-711897.png";
+import { Sort } from "./Sort";
 
-export function Menu() {
+export function Header() {
   return (
     <div className="header">
       <div className="logo">
         <a href="#" className="logo__anchor">
           <img src={logo} alt="logo" className="logo__img" />
           {/* не работает относительный путь для отображения лого */}
-          <span className="logo__name">Pizza #1</span>
+          <h1 className="logo__name">Pizza #1</h1>
         </a>
       </div>
       <div className="search">
@@ -18,7 +19,13 @@ export function Menu() {
             <img className="search-box__magnifier" src={magnifier} />{" "}
             {/* не работает относительный путь для отображения лого */}
           </button>
-          <input type="text" className="search__input" />
+          <div className="search-box__input-container">
+            <input
+              type="text"
+              placeholder="Поиск пиццы..."
+              className="search__input"
+            />
+          </div>
         </div>
         <div className="search__sort">
           <svg
@@ -33,16 +40,7 @@ export function Menu() {
           сортировка по: <span className="search__popular">популярности</span>
         </div>
       </div>
-      <div className="menu">
-        <ul className="menu__list">
-          <li>Все</li>
-          <li>Мясные</li>
-          <li>Вегетарианская</li>
-          <li>Гриль</li>
-          <li>Острые</li>
-          <li>Закрытые</li>
-        </ul>
-      </div>
+      <Sort />
       <div className="basket">
         <button className="basket__button">
           <img className="basket__img" src={basket} />
