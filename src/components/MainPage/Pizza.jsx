@@ -1,4 +1,6 @@
 export function Pizza({ props }) {
+  const size = ["Тонкое", "Толстое"];
+
   return (
     <div className="pizza-card">
       <img src={props.imageUrl} alt="pizza" className="pizza-card__img" />

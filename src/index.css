@@ -15,6 +15,7 @@
   outline: none;
 }
 a:focus,
+a:link,
 a:active,
 a:visited {
   outline: none;
@@ -104,8 +105,8 @@ h6 {
   margin-left: 10px;
   display: inline-block;
   font-weight: 700;
-  font-size: 32px;
-  min-width: 128px;
+  font-size: 24px;
+  min-width: 100px;
 }
 
 .logo__anchor {
@@ -116,16 +117,22 @@ h6 {
 
 .search {
   flex: 0 1 359px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .search-box {
   display: flex;
-  align-items: end;
 }
 
 .search-box__magnifier {
   max-width: 18px;
   max-height: 18px;
+  position: absolute;
+  left: 12px;
+  top: 7px;
+  opacity: 0.5;
 }
 
 .search-box__button {
@@ -134,34 +141,37 @@ h6 {
   border-top: 1px solid rgba(0, 0, 0, 0.25);
   border-radius: 25px 0 0 25px;
   min-height: 35px;
-  min-width: 45px;
+  min-width: 32px;
   background-color: rgba(250, 250, 250, 1);
+  position: relative;
 }
 
 .search-box__input-container {
-  border: 1px solid rgba(0, 0, 0, 0.25);
   border-radius: 0 25px 25px 0;
   max-height: 35px;
   min-width: 206px;
   background-color: rgba(250, 250, 250, 1);
-  margin-right: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+  position: relative;
 }
 
 .search__input {
   border-radius: 0 25px 25px 0;
   margin-left: 5px;
   min-height: 33px;
-  min-width: 185px;
+  min-width: 163px;
   background-color: rgba(250, 250, 250, 1);
 }
 
 .search__sort {
   margin-top: 3px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
 }
 
-.search__sort:hover {
+.search__popular:hover {
   cursor: pointer;
 }
 
@@ -180,13 +190,16 @@ li:hover {
   border-bottom: 1px solid;
 }
 
-.menu__list {
+.sorts {
   display: flex;
   gap: 3.36vw;
   font-size: 16px;
 }
+.sorts > a:first-child {
+  margin-left: 10px;
+}
 
-.menu__list:last-child {
+.sorts:last-child {
   margin-right: 10px;
 }
 
@@ -219,7 +232,7 @@ li:hover {
 
 .basket__price {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .main-container {
@@ -336,4 +349,42 @@ li:hover {
   background-color: rgba(230, 238, 206, 1);
   padding: 3px 9px;
   border-radius: 5px;
+}
+
+.sorts__item_active {
+  border-bottom: 1px solid;
+}
+
+.test {
+  position: absolute;
+  min-width: 130px;
+  min-height: 100px;
+  background-color: rgba(250, 250, 250, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  left: 107px;
+  top: 5px;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+.test1 {
+  position: relative;
+}
+
+svg {
+  margin-right: 3px;
+}
+
+.close {
+  max-width: 29px;
+  max-height: 29px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  opacity: 0.2;
+  cursor: pointer;
 }
