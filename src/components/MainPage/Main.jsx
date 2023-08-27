@@ -25,10 +25,10 @@ export function Main() {
     isFetching,
     isSuccess,
   } = useGetSortQuery(selectedSort > 0 ? selectedSort : "");
-  console.log(sortPizzas);
 
   let content;
 
+  let notFoundContent = <h1>Упс, такую пиццу мы пока ещё не делаем.</h1>;
   if (isFetching) {
     content = [...new Array(8)].map((item) => (
       <Skeleton key={nanoid()} props={item} />
@@ -42,7 +42,9 @@ export function Main() {
 
   return (
     <div className="main-container">
-      <div className="main">{content}</div>
+      <div className={`${content.length > 0 ? "main" : "notFound"}`}>
+        {content.length > 0 ? content : notFoundContent}
+      </div>
     </div>
   );
 }

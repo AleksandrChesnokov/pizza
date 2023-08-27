@@ -4,10 +4,11 @@ import { Menu } from "./Menu";
 import { SearchBox } from "./SearchBox";
 import { Link } from "react-router-dom";
 import { sortNum } from "../../rtk/sortSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export function Header() {
   const dispatch = useDispatch();
+  const totalPrice = useSelector((state) => state.basket.totalPrice);
 
   return (
     <div className="header">
@@ -27,7 +28,7 @@ export function Header() {
           className="basket__button"
         >
           <img className="basket__img" src={basket} />
-          <span className="basket__price">0₽</span>
+          <span className="basket__price">{totalPrice}₽</span>
         </Link>
       </div>
     </div>
