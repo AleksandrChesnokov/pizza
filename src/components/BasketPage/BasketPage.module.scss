@@ -1,40 +1,109 @@
 .root {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  padding-top: 130px;
+  padding: 130px 0 85px;
+  margin: auto;
+  max-width: 716px;
+  .dltButton {
+    cursor: pointer;
+  }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  color: rgba(0, 0, 0, 0.7);
+  img {
+    opacity: 0.5;
+  }
+  .basket {
+    display: flex;
+    align-items: center;
+    img {
+      max-width: 29px;
+      margin-right: 5px;
+    }
+  }
+  .dltButton {
+    display: flex;
+    align-items: center;
+    img {
+      max-width: 29px;
+    }
+  }
 }
 .pizza {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  font-size: 16px;
   .description {
     display: flex;
-    flex: 0 1 220px;
+    flex: 0 1 290px;
     flex-direction: column;
     align-items: center;
+    padding-right: 45px;
+    line-height: 20px;
+    h1 {
+      font-size: 18px;
+    }
+    h3 {
+      font-size: 16px;
+    }
   }
   .count {
-    flex: 0 1 30px;
+    flex: 0 1 40px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .price {
-    flex: 0 1 30px;
+    flex: 0 1 120px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    flex-direction: row;
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: 500;
   }
   img {
     max-width: 137px;
   }
   button {
     cursor: pointer;
-    flex: 0 1 30px;
+    flex: 0 0 30px;
     background-color: white;
     border: 1px solid;
-    border-radius: 30px;
-    padding: 5px;
+    border-radius: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 30px;
+    font-weight: 500;
+    &:hover {
+      background-color: rgba(212, 223, 177, 0.45);
+    }
   }
+  &:last-child {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .decrement {
+    opacity: 0.2;
+    cursor: not-allowed;
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+.total {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
+  font-size: 20px;
+  font-weight: 500;
 }
