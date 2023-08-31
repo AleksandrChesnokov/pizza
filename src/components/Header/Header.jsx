@@ -13,7 +13,11 @@ export function Header() {
   return (
     <div className="header">
       <div className="logo">
-        <Link to={"/"} className="logo__anchor">
+        <Link
+          to={"/"}
+          onClick={() => dispatch(sortNum(0))}
+          className="logo__anchor"
+        >
           <img src={logo} alt="logo" className="logo__img" />
           {/* не работает относительный путь для отображения лого */}
           <h1 className="logo__name">Pizza #1</h1>
@@ -22,14 +26,16 @@ export function Header() {
       <SearchBox />
       <Menu />
       <div className="basket">
-        <Link
-          to={"basket"}
-          onClick={() => dispatch(sortNum(null))}
-          className="basket__button"
-        >
-          <img className="basket__img" src={basket} />
-          <span className="basket__price">{totalPrice}₽</span>
-        </Link>
+        {totalPrice > 0 && (
+          <Link
+            to={"basket"}
+            onClick={() => dispatch(sortNum(null))}
+            className="basket__button"
+          >
+            <img className="basket__img" src={basket} alt="" />
+            <span className="basket__price">{totalPrice}₽</span>
+          </Link>
+        )}
       </div>
     </div>
   );

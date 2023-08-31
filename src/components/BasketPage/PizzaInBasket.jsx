@@ -15,15 +15,16 @@ export function PizzaInBasket({ prop }) {
         <h1>{prop.title}</h1>
         <h3>{`${prop.types} тесто, ${prop.sizes} см.`}</h3>
       </div>
-      <button className="increment" onClick={() => dispatch(increment(prop))}>
-        +
-      </button>
-      <span className={styles.count}>{prop.count}</span>
       <button
         className={valueCount < 2 ? styles.decrement : ""}
         onClick={() => dispatch(decrement(prop))}
       >
         -
+      </button>
+
+      <span className={styles.count}>{prop.count}</span>
+      <button className="increment" onClick={() => dispatch(increment(prop))}>
+        +
       </button>
       <div className={styles.price}>{prop.price}₽</div>
       <button className="remove-button" onClick={() => dispatch(remove(prop))}>

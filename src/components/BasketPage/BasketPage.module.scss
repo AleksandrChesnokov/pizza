@@ -107,3 +107,23 @@
   font-size: 20px;
   font-weight: 500;
 }
+.empty {
+  display: flex;
+  flex-direction: column;
+  padding: 130px 0 85px;
+  margin: auto;
+  max-width: 716px;
+  align-items: center;
+  line-height: 50px;
+  h1 {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  p {
+    font-size: 20px;
+  }
+  img {
+    max-width: 512px;
+    width: 100%;
+  }
+}
