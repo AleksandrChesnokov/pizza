@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { basket } from "../../rtk/basketSlice";
 import { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
@@ -10,6 +10,12 @@ export function Pizza({ props }) {
   const [selectedSize, setSelectedSize] = useState(0);
 
   const dispatch = useDispatch();
+  const countValue = useSelector((state) =>
+    Object.values(state.basket.pizzas)
+      .filter((item) => item.id === props.id)
+      .map((item) => item.count)
+      .reduce((sum, current) => sum + current, 0)
+  );
 
   function handleAddPizza(prop) {
     dispatch(
@@ -21,6 +27,7 @@ export function Pizza({ props }) {
         sizes: prop.sizes[selectedSize],
         price: prop.price,
         count: 1,
+        id: prop.id,
       })
     );
   }
@@ -63,7 +70,12 @@ export function Pizza({ props }) {
           className="pizza-selector-info__button-add"
           onClick={() => handleAddPizza(props)}
         >
-          + Добавить
+          Добавить{" "}
+          {countValue > 0 ? (
+            <span className="pizza-selector-info__count">{countValue}</span>
+          ) : (
+            ""
+          )}
         </button>
       </div>
     </div>
