@@ -10,7 +10,7 @@ export function Pizza({ props }) {
   const [selectedSize, setSelectedSize] = useState(0);
 
   const dispatch = useDispatch();
-  const countValue = useSelector((state) =>
+  const counterValue = useSelector((state) =>
     Object.values(state.basket.pizzas)
       .filter((item) => item.id === props.id)
       .map((item) => item.count)
@@ -71,8 +71,8 @@ export function Pizza({ props }) {
           onClick={() => handleAddPizza(props)}
         >
           Добавить{" "}
-          {countValue > 0 ? (
-            <span className="pizza-selector-info__count">{countValue}</span>
+          {counterValue > 0 ? (
+            <span className="pizza-selector-info__count">{counterValue}</span>
           ) : (
             ""
           )}

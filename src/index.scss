@@ -1,0 +1,718 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,
+:active {
+  outline: none;
+}
+a:focus,
+a:link,
+a:active,
+a:visited {
+  outline: none;
+  color: black;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-family: "Jost";
+}
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+button {
+  cursor: pointer;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+a,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+ul li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+.header {
+  display: flex;
+  min-height: 100px;
+  background-color: rgba(250, 250, 250, 1);
+  justify-content: space-between;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+}
+
+.logo {
+  display: flex;
+  flex: 0 1 292px;
+  &__img {
+    max-width: 78px;
+    max-height: 77px;
+    margin-left: 10px;
+  }
+  &__name {
+    margin-left: 10px;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 24px;
+    min-width: 100px;
+  }
+  &__anchor {
+    display: flex;
+    margin-right: 10px;
+    align-items: center;
+  }
+}
+
+.search {
+  flex: 0 1 359px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__input {
+    border-radius: 0 25px 25px 0;
+    margin-left: 5px;
+    min-height: 33px;
+    max-width: 113px;
+    background-color: rgba(250, 250, 250, 1);
+  }
+  &__sort {
+    margin-top: 3px;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  &__popular:hover {
+    cursor: pointer;
+    border-bottom: 1px solid;
+  }
+}
+
+.search-box {
+  display: flex;
+  &__magnifier {
+    max-width: 18px;
+    max-height: 18px;
+    position: absolute;
+    left: 12px;
+    top: 7px;
+    opacity: 0.5;
+  }
+  &__button {
+    border-left: 1px solid rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 25px 0 0 25px;
+    min-height: 35px;
+    min-width: 32px;
+    background-color: rgba(250, 250, 250, 1);
+    position: relative;
+  }
+  &__input-container {
+    border-radius: 0 25px 25px 0;
+    max-height: 35px;
+    min-width: 150px;
+    background-color: rgba(250, 250, 250, 1);
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
+    position: relative;
+  }
+}
+
+.menu {
+  display: flex;
+  flex: 0 1 1110px;
+  align-items: center;
+}
+
+li:hover {
+  cursor: pointer;
+  border-bottom: 1px solid;
+}
+
+.sorts {
+  display: flex;
+  gap: 3.36vw;
+  font-size: 16px;
+  &__item_active {
+    border-bottom: 1px solid;
+  }
+  & > a:first-child {
+    margin-left: 10px;
+  }
+  &:last-child {
+    margin-right: 10px;
+  }
+}
+
+.basket {
+  display: flex;
+  align-items: center;
+  flex: 1 0 165px;
+  &__img {
+    max-width: 21px;
+    max-height: 21px;
+  }
+  &__button {
+    display: flex;
+    background-color: rgba(250, 250, 250, 1);
+    border: 1px solid;
+    border-radius: 25px;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px;
+    &:hover {
+      background-color: rgba(212, 223, 177, 0.45);
+    }
+  }
+  &__price {
+    font-weight: 600;
+    font-size: 18px;
+    margin-left: 5px;
+  }
+}
+
+.main {
+  padding: 130px 0px 90px 0px;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  row-gap: 62px;
+  column-gap: 5.72vw;
+  &-container {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.pizza-card {
+  display: flex;
+  flex-direction: column;
+  &__pizza-name {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+
+.pizza-selector {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(212, 223, 177, 0.45);
+  border-radius: 5px;
+  min-height: 61px;
+  justify-content: space-evenly;
+  margin-top: 6px;
+  padding: 4px 8px;
+  &-dough {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    &:hover {
+      cursor: pointer;
+    }
+    &__type {
+      padding: 3px 24px;
+      border-radius: 5px;
+      flex: 1 1 auto;
+      text-align: center;
+      &_active {
+        padding: 3px 24px;
+        border-radius: 5px;
+        flex: 1 1 auto;
+        text-align: center;
+        background-color: white;
+      }
+    }
+  }
+  &-sizes {
+    display: flex;
+    justify-content: space-around;
+    border-radius: 5px;
+    &:hover {
+      cursor: pointer;
+    }
+    &__size {
+      flex: 1 1 auto;
+      text-align: center;
+      padding: 4px 9px;
+      border-radius: 5px;
+      &_active {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 4px 9px;
+        border-radius: 5px;
+        background-color: white;
+      }
+    }
+  }
+}
+
+.pizza-selector-info {
+  display: flex;
+  justify-content: space-between;
+  min-height: 42px;
+  align-items: center;
+  &__count {
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 0 3px;
+    display: inline-block;
+    min-width: 20px;
+    background-color: white;
+  }
+  &__button-add {
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 4px 14px;
+    background-color: white;
+    min-width: 111px;
+    min-height: 31px;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(212, 223, 177, 0.45);
+    }
+  }
+  &__price {
+    font-weight: 700;
+    font-size: 18px;
+  }
+}
+
+.pizza-card__img {
+  max-height: 205px;
+  max-width: 251px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+}
+
+.test {
+  // Нужно изменить класс для фильтрации
+  position: absolute;
+  min-width: 130px;
+  min-height: 100px;
+  background-color: rgba(250, 250, 250, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  left: 107px;
+  top: 5px;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+.test1 {
+  position: relative;
+}
+
+svg {
+  margin-right: 3px;
+}
+
+.close {
+  max-width: 29px;
+  max-height: 29px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  opacity: 0.2;
+  cursor: pointer;
+}
+
+.notFound {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  padding-top: 100px;
+  font-size: 36px;
+}
+
+.delivery-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  .street-form {
+    width: 70%;
+    margin: auto;
+  }
+  .order-destination {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    margin: auto;
+  }
+  .full-name {
+    width: 70%;
+    margin: auto;
+    display: flex;
+  }
+  .comment-form {
+    width: 70%;
+    margin: auto;
+  }
+  .delivery-form {
+    position: relative;
+    width: 100%;
+    &__apartment {
+      border: 1px solid rgb(0 0 0 / 44%);
+      border-radius: 5px 0 0 5px;
+      padding: 0 15px;
+      height: 44px;
+      width: 100%;
+      &:focus {
+        border-color: #9eb400;
+      }
+      &:focus + label {
+        position: absolute;
+        top: -6px;
+        padding: 0 4px;
+        background: #fff;
+        font-size: 13px;
+        color: #000;
+        left: 6px;
+        transition: all 0.1s linear;
+      }
+      &_active {
+        border: 1px solid rgb(0 0 0 / 44%);
+        border-radius: 5px 0 0 5px;
+        padding: 0 15px;
+        height: 44px;
+        width: 100%;
+        &:focus {
+          border-color: #9eb400;
+        }
+        &:focus + label {
+          position: absolute;
+          top: -6px;
+          padding: 0 4px;
+          background: #fff;
+          font-size: 13px;
+          color: #000;
+          left: 6px;
+          transition: all 0.1s linear;
+        }
+      }
+    }
+    &__entrance {
+      border-top: 1px solid rgba(0, 0, 0, 0.44);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.44);
+      padding: 0 15px;
+      height: 44px;
+      width: 100%;
+      &:focus {
+        border-color: #9eb400;
+      }
+      &:focus + label {
+        position: absolute;
+        top: -6px;
+        padding: 0 4px;
+        background: #fff;
+        font-size: 13px;
+        color: #000;
+        left: 6px;
+        transition: all 0.1s linear;
+      }
+      &_active {
+        border-top: 1px solid rgba(0, 0, 0, 0.44);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.44);
+        padding: 0 15px;
+        height: 44px;
+        width: 100%;
+        &:focus {
+          border-color: #9eb400;
+        }
+        &:focus + label {
+          position: absolute;
+          top: -6px;
+          padding: 0 4px;
+          background: #fff;
+          font-size: 13px;
+          color: #000;
+          left: 6px;
+          transition: all 0.1s linear;
+        }
+      }
+    }
+    &__floor {
+      border: 1px solid rgb(0 0 0 / 44%);
+      border-radius: 0 5px 5px 0;
+      padding: 0 15px;
+      height: 44px;
+      width: 100%;
+      &:focus {
+        border-color: #9eb400;
+      }
+      &:focus + label {
+        position: absolute;
+        top: -6px;
+        padding: 0 4px;
+        background: #fff;
+        font-size: 13px;
+        color: #000;
+        left: 6px;
+        transition: all 0.1s linear;
+      }
+      &_active {
+        border: 1px solid rgb(0 0 0 / 44%);
+        border-radius: 0 5px 5px 0;
+        padding: 0 15px;
+        height: 44px;
+        width: 100%;
+        &:focus {
+          border-color: #9eb400;
+        }
+        &:focus + label {
+          position: absolute;
+          top: -6px;
+          padding: 0 4px;
+          background: #fff;
+          font-size: 13px;
+          color: #000;
+          left: 6px;
+          transition: all 0.1s linear;
+        }
+      }
+    }
+    &__street {
+      border: 1px solid rgb(0 0 0 / 44%);
+      border-radius: 5px;
+      padding: 0 15px;
+      height: 44px;
+      width: 100%;
+      &:focus {
+        border-color: #9eb400;
+      }
+      &:focus + label {
+        position: absolute;
+        top: -6px;
+        padding: 0 4px;
+        background: #fff;
+        font-size: 13px;
+        color: #000;
+        left: 6px;
+        transition: all 0.1s linear;
+      }
+      &_active {
+        border: 1px solid rgb(0 0 0 / 44%);
+        border-radius: 5px;
+        padding: 0 15px;
+        height: 44px;
+        width: 100%;
+        &:focus {
+          border-color: #9eb400;
+        }
+        &:focus + label {
+          position: absolute;
+          top: -6px;
+          padding: 0 4px;
+          background: #fff;
+          font-size: 13px;
+          color: #000;
+          left: 6px;
+          transition: all 0.1s linear;
+        }
+      }
+    }
+    &__name {
+      border: 1px solid rgb(0 0 0 / 44%);
+      border-radius: 5px 0 0 5px;
+      padding: 0 15px;
+      height: 44px;
+      width: 100%;
+      &:focus {
+        border-color: #9eb400;
+      }
+      &:focus + label {
+        position: absolute;
+        top: -6px;
+        padding: 0 4px;
+        background: #fff;
+        font-size: 13px;
+        color: #000;
+        left: 6px;
+        transition: all 0.1s linear;
+      }
+      &_active {
+        border: 1px solid rgb(0 0 0 / 44%);
+        border-radius: 5px 0 0 5px;
+        padding: 0 15px;
+        height: 44px;
+        width: 100%;
+        &:focus {
+          border-color: #9eb400;
+        }
+        &:focus + label {
+          position: absolute;
+          top: -6px;
+          padding: 0 4px;
+          background: #fff;
+          font-size: 13px;
+          color: #000;
+          left: 6px;
+          transition: all 0.1s linear;
+        }
+      }
+    }
+    &__number {
+      border-right: 1px solid rgb(0 0 0 / 44%);
+      border-top: 1px solid rgb(0 0 0 / 44%);
+      border-bottom: 1px solid rgb(0 0 0 / 44%);
+      border-radius: 0 5px 5px 0;
+      padding: 0 15px;
+      height: 44px;
+      width: 100%;
+      &:focus {
+        border-color: #9eb400;
+      }
+      &:focus + label {
+        position: absolute;
+        top: -6px;
+        padding: 0 4px;
+        background: #fff;
+        font-size: 13px;
+        color: #000;
+        left: 6px;
+        transition: all 0.1s linear;
+      }
+      &_active {
+        border-right: 1px solid rgb(0 0 0 / 44%);
+        border-top: 1px solid rgb(0 0 0 / 44%);
+        border-bottom: 1px solid rgb(0 0 0 / 44%);
+        border-radius: 0 5px 5px 0;
+        padding: 0 15px;
+        height: 44px;
+        width: 100%;
+        &:focus {
+          border-color: #9eb400;
+        }
+        &:focus + label {
+          position: absolute;
+          top: -6px;
+          padding: 0 4px;
+          background: #fff;
+          font-size: 13px;
+          color: #000;
+          left: 6px;
+          transition: all 0.1s linear;
+        }
+      }
+    }
+    &__comment {
+      border: 1px solid rgb(0 0 0 / 44%);
+      border-radius: 5px;
+      padding: 0 15px;
+      height: 44px;
+      width: 100%;
+      &:focus {
+        border-color: #9eb400;
+      }
+      &:focus + label {
+        position: absolute;
+        top: -6px;
+        padding: 0 4px;
+        background: #fff;
+        font-size: 13px;
+        color: #000;
+        left: 6px;
+        transition: all 0.1s linear;
+      }
+      &_active {
+        border: 1px solid rgb(0 0 0 / 44%);
+        border-radius: 5px;
+        padding: 0 15px;
+        height: 44px;
+        width: 100%;
+        &:focus {
+          border-color: #9eb400;
+        }
+        &:focus + label {
+          position: absolute;
+          top: -6px;
+          padding: 0 4px;
+          background: #fff;
+          font-size: 13px;
+          color: #000;
+          left: 6px;
+          transition: all 0.1s linear;
+        }
+      }
+    }
+  }
+  .delivery-form__label {
+    position: absolute;
+    color: rgb(0 0 0 / 44%);
+    font-size: 15px;
+    font-weight: 700;
+    left: 15px;
+    top: 14px;
+    transition: all 0.1s linear;
+
+    &_active {
+      position: absolute;
+      top: -6px;
+      padding: 0 4px;
+      background: #fff;
+      font-size: 13px;
+      color: #000;
+      left: 6px;
+      transition: all 0.1s linear;
+      font-weight: 700;
+    }
+  }
+}
