@@ -1,8 +1,8 @@
 import { Pizza } from "./Pizza";
+import { Skeleton } from "./Skeleton";
 import { nanoid } from "@reduxjs/toolkit";
 import { useGetSortQuery } from "../../rtk/apiSlice";
 import { useSelector } from "react-redux";
-import { Skeleton } from "./Skeleton";
 
 export function Main() {
   const selectedSort = useSelector((state) => state.sort.value);

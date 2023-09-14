@@ -5,10 +5,16 @@ import { SearchBox } from "./SearchBox";
 import { Link } from "react-router-dom";
 import { sortNum } from "../../rtk/sortSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export function Header() {
   const dispatch = useDispatch();
   const totalPrice = useSelector((state) => state.basket.totalPrice);
+  const itemsInBasket = useSelector((state) => state.basket);
+
+  useEffect(() => {
+    localStorage.setItem("basket", JSON.stringify(itemsInBasket));
+  }, [itemsInBasket]);
 
   return (
     <div className="header">

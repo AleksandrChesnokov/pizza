@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getPizzasLS } from "../utils/getPizzasLS";
+import { getTotalPriceLS } from "../utils/getTotalPriceLS";
 
 export const basketSlice = createSlice({
   name: "basket",
   initialState: {
-    totalPrice: 0,
-    pizzas: {},
+    totalPrice: getTotalPriceLS(),
+    pizzas: getPizzasLS(),
   },
   reducers: {
     basket: (state, action) => {
