@@ -53,8 +53,11 @@ export function SearchBox() {
     <div className="search">
       <div className="search-box">
         <div className="search-box__button">
-          <img className="search-box__magnifier" src={magnifier} />{" "}
-          {/* не работает относительный путь для отображения лого */}
+          <img
+            className="search-box__magnifier"
+            src={magnifier}
+            alt="magnifier"
+          />{" "}
         </div>
         <div className="search-box__input-container">
           <input

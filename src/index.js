@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./rtk/store";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ErrorPage } from "./components/ErrorPage/ErrorPage";
+import { NotFoundPage } from "./components/NotFoundPage/NotFoundPage";
 import { Main } from "./components/MainPage/Main";
 import { Basket } from "./components/BasketPage/Basket";
 
@@ -14,10 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
-        errorElement: <ErrorPage />,
+        errorElement: <NotFoundPage />,
         children: [
           { index: true, element: <Main /> },
           {

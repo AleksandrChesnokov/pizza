@@ -1,13 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import { basket } from "../../rtk/basketSlice";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function Pizza({ props }) {
   const doughType = ["Тонкое", "Толстое"];
 
   const [selectedDoughType, setSelectedDoughType] = useState(0);
   const [selectedSize, setSelectedSize] = useState(0);
+  const [load, setLoad] = useState(false);
+
+  useEffect(() => {
+    const image = new Image();
+    image.onload = function () {
+      setLoad(true);
+    };
+    image.src = props.imageUrl;
+  }, [props.imageUrl]);
 
   const dispatch = useDispatch();
   const counterValue = useSelector((state) =>
@@ -34,7 +45,18 @@ export function Pizza({ props }) {
 
   return (
     <div className="pizza-card">
-      <img src={props.imageUrl} alt="pizza" className="pizza-card__img" />
+      <div className="pizza-card__img">
+        {load ? null : (
+          <CircularProgress sx={{ color: "rgba(212, 223, 177, 0.45)" }} />
+        )}
+        <img
+          src={props.imageUrl}
+          style={load ? {} : { display: "none" }}
+          alt="pizza"
+          className="pizza-card__img"
+          loading="lazy"
+        />
+      </div>
       <h3 className="pizza-card__pizza-name">{props.title}</h3>
       <div className="pizza-selector">
         <div className="pizza-selector-dough">

@@ -1,9 +1,9 @@
 import { Header } from "../Header/Header";
 import { Link } from "react-router-dom";
 import sad from "../../img/free-icon-sad-5793656.png";
-import styles from "./ErrorPage.module.scss";
+import styles from "./NotFoundPage.module.scss";
 
-export function ErrorPage() {
+export function NotFoundPage() {
   return (
     <div className="ErrorPage">
       <Header />

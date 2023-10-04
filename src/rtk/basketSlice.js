@@ -10,33 +10,34 @@ export const basketSlice = createSlice({
   },
   reducers: {
     basket: (state, action) => {
-      if (!state.pizzas[action.payload.key]) {
-        state.pizzas[action.payload.key] = action.payload;
-        state.pizzas[action.payload.key].initialPrice = action.payload.price;
-        state.totalPrice += action.payload.price;
+      const { price, key } = action.payload;
+      if (!state.pizzas[key]) {
+        state.pizzas[key] = action.payload;
+        state.pizzas[key].initialPrice = price;
+        state.totalPrice += price;
       } else {
-        state.pizzas[action.payload.key].count = ++state.pizzas[
-          action.payload.key
-        ].count;
-        state.pizzas[action.payload.key].price += action.payload.price;
-        state.totalPrice += action.payload.price;
+        state.pizzas[key].count = ++state.pizzas[key].count;
+        state.pizzas[key].price += price;
+        state.totalPrice += price;
       }
     },
     increment: (state, action) => {
+      const { initialPrice, key } = action.payload;
       for (let prop in state.pizzas) {
-        if (prop === action.payload.key) {
-          state.pizzas[prop].price += action.payload.initialPrice;
+        if (prop === key) {
+          state.pizzas[prop].price += initialPrice;
           state.pizzas[prop].count = ++state.pizzas[prop].count;
-          state.totalPrice += action.payload.initialPrice;
+          state.totalPrice += initialPrice;
         }
       }
     },
     decrement: (state, action) => {
+      const { initialPrice, key } = action.payload;
       for (let prop in state.pizzas) {
-        if (prop === action.payload.key && state.pizzas[prop].count > 1) {
-          state.pizzas[prop].price -= action.payload.initialPrice;
+        if (prop === key && state.pizzas[prop].count > 1) {
+          state.pizzas[prop].price -= initialPrice;
           state.pizzas[prop].count = --state.pizzas[prop].count;
-          state.totalPrice -= action.payload.initialPrice;
+          state.totalPrice -= initialPrice;
         }
       }
     },

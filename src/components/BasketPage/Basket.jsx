@@ -5,9 +5,37 @@ import styles from "./BasketPage.module.scss";
 import { removeAll } from "../../rtk/basketSlice";
 import { useState } from "react";
 
-import dlt from "../../img/free-icon-delete-1214428.png";
-import basketImg from "../../img/free-icon-shopping-cart-711897.png";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import {
+  TextField,
+  Switch,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+} from "@mui/material";
+import { ruRU } from "@mui/x-date-pickers/locales";
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+
 import packageIcon from "../../img/package.png";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#c2d190",
+    },
+  },
+  typography: {
+    fontFamily: ["Jost"].join(","),
+  },
+});
 
 export function Basket() {
   const hasItems = useSelector((state) => state.basket.pizzas);
@@ -19,19 +47,64 @@ function Card() {
   const dispatch = useDispatch();
   const itemsInBasket = useSelector((state) => state.basket.pizzas);
   const totalPrice = useSelector((state) => state.basket.totalPrice);
+
+  const futureDate = dayjs().add(14, "days");
+  const today = dayjs();
+
   const [modalActive, setModalActive] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(today);
+  const [showCalendar, setShowCalendar] = useState(false);
+
+  const minTime = selectedDate.hour(9).minute(0);
+  const maxTime = selectedDate.hour(22).minute(59);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const handleChangeSwitch = (e) => {
+    if (e.target.checked) {
+      return setShowCalendar(true);
+    }
+    return setShowCalendar(false);
+  };
+
+  const shouldDisableTime = (value, view) => {
+    if (today.date() === value.date()) {
+      return view === "hours" && value.hour() < today.hour() + 2;
+    }
+  };
+
+  const calendar = (
+    <DateTimePicker
+      maxTime={maxTime}
+      minTime={minTime}
+      skipDisabled={true}
+      onChange={handleDateChange}
+      shouldDisableTime={shouldDisableTime}
+      disablePast={true}
+      maxDate={futureDate}
+      timeSteps={{ minutes: 15 }}
+      label="Выберете дату доставки"
+    />
+  );
+
   return (
     <div className={styles.root}>
       <div className={styles.header}>
         <div className={styles.iconBasket}>
-          <img src={basketImg} alt="basket" />
+          <ShoppingCartOutlinedIcon
+            sx={{ height: 30, width: 30, color: "#00000082" }}
+          />
           Корзина
         </div>
         <div
           className={styles.dltButton}
           onClick={() => dispatch(removeAll(itemsInBasket))}
         >
-          <img src={dlt} alt="basket" />
+          <DeleteOutlineOutlinedIcon
+            sx={{ height: 30, width: 30, color: "#00000082" }}
+          />
           Очистить корзину
         </div>
       </div>
@@ -46,23 +119,91 @@ function Card() {
       </div>
       <div className="delivery-container">
         <h2>Оформление заказа</h2>
-        <div className="street-form">
-          <InputForm props={{ name: "street", text: "Улица" }} />
-        </div>
-        <div className="order-destination">
-          <InputForm props={{ name: "apartment", text: "Квартира" }} />
-          <InputForm props={{ name: "entrance", text: "Подъезд" }} />
-          <InputForm props={{ name: "floor", text: "Этаж" }} />
-        </div>
-        <div className="full-name">
-          <InputForm props={{ name: "name", text: "Ваше имя" }} />
-          <InputForm props={{ name: "number", text: "Телефон" }} />
-        </div>
-        <div className="comment-form">
-          <InputForm
-            props={{ name: "comment", text: "Комментарий к адресу" }}
-          />
-        </div>
+        <ThemeProvider theme={theme}>
+          <LocalizationProvider
+            localeText={
+              ruRU.components.MuiLocalizationProvider.defaultProps.localeText
+            }
+            adapterLocale={"ru"}
+            dateAdapter={AdapterDayjs}
+          >
+            <div className="address-form">
+              <TextField
+                id="outlined-basic"
+                type="text"
+                label="Адрес"
+                variant="outlined"
+                fullWidth={true}
+                inputProps={{ maxlength: 35 }}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Номер дома"
+                variant="outlined"
+                type="text"
+                fullWidth={true}
+                inputProps={{ maxlength: 5 }}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Номер квартиры"
+                variant="outlined"
+                type="text"
+                fullWidth={true}
+                inputProps={{ maxlength: 5 }}
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-basic"
+                fullWidth={true}
+                label="Ваше имя"
+                variant="outlined"
+                type="text"
+                inputProps={{ maxlength: 20 }}
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-basic"
+                fullWidth={true}
+                label="Телефон"
+                variant="outlined"
+                placeholder="+7"
+                defaultValue="+7"
+                type="tel"
+                inputProps={{ maxlength: 12 }}
+              />
+            </div>
+            <div className="switcher">
+              <div>
+                К определенному времени
+                <Switch onChange={handleChangeSwitch} />
+              </div>
+              {showCalendar && calendar}
+            </div>
+            <FormControl>
+              <FormLabel>Способ оплаты</FormLabel>
+              <RadioGroup row name="row-radio-buttons-group">
+                <FormControlLabel
+                  value="Картой курьеру"
+                  control={<Radio />}
+                  label="Картой курьеру"
+                />
+                <FormControlLabel
+                  value="Картой онлайн"
+                  control={<Radio />}
+                  label="Картой онлайн"
+                />
+                <FormControlLabel
+                  value="Наличными курьеру"
+                  control={<Radio />}
+                  label="Наличными курьеру"
+                />
+              </RadioGroup>
+            </FormControl>
+          </LocalizationProvider>
+        </ThemeProvider>
       </div>
       <div className={styles.buttonOrder}>
         <button onClick={() => setModalActive(!modalActive)}>
@@ -86,34 +227,6 @@ function EmptyCard() {
         Выберите блюда из меню или оставьте заявку, и мы поможем вам с заказом.
       </p>
       <img src={packageIcon} alt="package" />
-    </div>
-  );
-}
-
-function InputForm({ props }) {
-  const [formValue, setFormValue] = useState("");
-  return (
-    <div className="delivery-form">
-      <input
-        className={
-          formValue.length > 0
-            ? `delivery-form__${props.name}_active`
-            : `delivery-form__${props.name}`
-        }
-        onChange={(e) => setFormValue(e.target.value)}
-        id={props.name}
-        value={formValue}
-      />
-      <label
-        className={
-          formValue.length > 0
-            ? `delivery-form__label_active`
-            : `delivery-form__label`
-        }
-        htmlFor={props.name}
-      >
-        {props.text}
-      </label>
     </div>
   );
 }

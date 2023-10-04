@@ -49,7 +49,6 @@
     flex: 0 1 290px;
     flex-direction: column;
     align-items: center;
-    padding-right: 45px;
     line-height: 20px;
     h1 {
       font-size: 18px;
@@ -72,26 +71,11 @@
     flex-direction: row;
     margin-right: 10px;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
   }
   img {
-    max-width: 137px;
-  }
-  button {
-    cursor: pointer;
-    flex: 0 0 30px;
-    background-color: white;
-    border: 1px solid;
-    border-radius: 15px;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-height: 30px;
-    font-weight: 500;
-    &:hover {
-      background-color: rgba(212, 223, 177, 0.45);
-    }
+    width: 137px;
+    min-height: 137px;
   }
   &:last-child {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -108,9 +92,12 @@
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
-  padding: 0 50px;
+  padding: 0 75px;
   font-size: 20px;
   font-weight: 500;
+  & > span:last-child {
+    font-weight: 400;
+  }
 }
 .empty {
   display: flex;

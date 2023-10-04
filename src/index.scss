@@ -28,7 +28,9 @@ header,
 aside {
   display: block;
 }
-
+html {
+  overflow-y: scroll;
+}
 html,
 body {
   height: 100%;
@@ -40,6 +42,15 @@ body {
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   font-family: "Jost";
+  &::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba(212, 223, 177, 0.45);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+  }
 }
 input,
 button,
@@ -83,7 +94,7 @@ h6 {
 
 .header {
   display: flex;
-  min-height: 100px;
+  min-height: 80px;
   background-color: rgba(250, 250, 250, 1);
   justify-content: space-between;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
@@ -91,6 +102,10 @@ h6 {
   width: 100%;
   position: fixed;
   z-index: 2;
+  & > li:hover {
+    cursor: pointer;
+    border-bottom: 1px solid;
+  }
 }
 
 .logo {
@@ -136,6 +151,9 @@ h6 {
     cursor: pointer;
     border-bottom: 1px solid;
   }
+  li:hover {
+    cursor: pointer;
+  }
 }
 
 .search-box {
@@ -176,11 +194,6 @@ h6 {
   align-items: center;
 }
 
-li:hover {
-  cursor: pointer;
-  border-bottom: 1px solid;
-}
-
 .sorts {
   display: flex;
   gap: 3.36vw;
@@ -201,8 +214,8 @@ li:hover {
   align-items: center;
   flex: 1 0 165px;
   &__img {
-    max-width: 21px;
-    max-height: 21px;
+    width: 21px;
+    height: 21px;
   }
   &__button {
     display: flex;
@@ -224,7 +237,7 @@ li:hover {
 }
 
 .main {
-  padding: 130px 0px 90px 0px;
+  padding: 120px 0px 90px 0px;
   justify-content: center;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -245,6 +258,13 @@ li:hover {
     justify-content: center;
     font-weight: 500;
     font-size: 16px;
+  }
+  &__img {
+    width: 205px;
+    height: 205px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -333,8 +353,8 @@ li:hover {
 }
 
 .pizza-card__img {
-  max-height: 205px;
-  max-width: 251px;
+  min-height: 205px;
+  width: 205px;
   border-radius: 5px;
   margin-bottom: 6px;
 }
@@ -352,16 +372,11 @@ li:hover {
   justify-content: space-evenly;
   left: 107px;
   top: 5px;
-  border-radius: 10px;
   border: 1px solid;
 }
 
 .test1 {
   position: relative;
-}
-
-svg {
-  margin-right: 3px;
 }
 
 .close {
@@ -387,332 +402,16 @@ svg {
   justify-content: center;
   flex-direction: column;
   gap: 15px;
-  .street-form {
-    width: 70%;
-    margin: auto;
-  }
-  .order-destination {
-    display: flex;
-    justify-content: center;
-    width: 70%;
-    margin: auto;
-  }
-  .full-name {
-    width: 70%;
-    margin: auto;
-    display: flex;
-  }
-  .comment-form {
-    width: 70%;
-    margin: auto;
-  }
-  .delivery-form {
-    position: relative;
-    width: 100%;
-    &__apartment {
-      border: 1px solid rgb(0 0 0 / 44%);
-      border-radius: 5px 0 0 5px;
-      padding: 0 15px;
-      height: 44px;
-      width: 100%;
-      &:focus {
-        border-color: #9eb400;
-      }
-      &:focus + label {
-        position: absolute;
-        top: -6px;
-        padding: 0 4px;
-        background: #fff;
-        font-size: 13px;
-        color: #000;
-        left: 6px;
-        transition: all 0.1s linear;
-      }
-      &_active {
-        border: 1px solid rgb(0 0 0 / 44%);
-        border-radius: 5px 0 0 5px;
-        padding: 0 15px;
-        height: 44px;
-        width: 100%;
-        &:focus {
-          border-color: #9eb400;
-        }
-        &:focus + label {
-          position: absolute;
-          top: -6px;
-          padding: 0 4px;
-          background: #fff;
-          font-size: 13px;
-          color: #000;
-          left: 6px;
-          transition: all 0.1s linear;
-        }
-      }
-    }
-    &__entrance {
-      border-top: 1px solid rgba(0, 0, 0, 0.44);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.44);
-      padding: 0 15px;
-      height: 44px;
-      width: 100%;
-      &:focus {
-        border-color: #9eb400;
-      }
-      &:focus + label {
-        position: absolute;
-        top: -6px;
-        padding: 0 4px;
-        background: #fff;
-        font-size: 13px;
-        color: #000;
-        left: 6px;
-        transition: all 0.1s linear;
-      }
-      &_active {
-        border-top: 1px solid rgba(0, 0, 0, 0.44);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.44);
-        padding: 0 15px;
-        height: 44px;
-        width: 100%;
-        &:focus {
-          border-color: #9eb400;
-        }
-        &:focus + label {
-          position: absolute;
-          top: -6px;
-          padding: 0 4px;
-          background: #fff;
-          font-size: 13px;
-          color: #000;
-          left: 6px;
-          transition: all 0.1s linear;
-        }
-      }
-    }
-    &__floor {
-      border: 1px solid rgb(0 0 0 / 44%);
-      border-radius: 0 5px 5px 0;
-      padding: 0 15px;
-      height: 44px;
-      width: 100%;
-      &:focus {
-        border-color: #9eb400;
-      }
-      &:focus + label {
-        position: absolute;
-        top: -6px;
-        padding: 0 4px;
-        background: #fff;
-        font-size: 13px;
-        color: #000;
-        left: 6px;
-        transition: all 0.1s linear;
-      }
-      &_active {
-        border: 1px solid rgb(0 0 0 / 44%);
-        border-radius: 0 5px 5px 0;
-        padding: 0 15px;
-        height: 44px;
-        width: 100%;
-        &:focus {
-          border-color: #9eb400;
-        }
-        &:focus + label {
-          position: absolute;
-          top: -6px;
-          padding: 0 4px;
-          background: #fff;
-          font-size: 13px;
-          color: #000;
-          left: 6px;
-          transition: all 0.1s linear;
-        }
-      }
-    }
-    &__street {
-      border: 1px solid rgb(0 0 0 / 44%);
-      border-radius: 5px;
-      padding: 0 15px;
-      height: 44px;
-      width: 100%;
-      &:focus {
-        border-color: #9eb400;
-      }
-      &:focus + label {
-        position: absolute;
-        top: -6px;
-        padding: 0 4px;
-        background: #fff;
-        font-size: 13px;
-        color: #000;
-        left: 6px;
-        transition: all 0.1s linear;
-      }
-      &_active {
-        border: 1px solid rgb(0 0 0 / 44%);
-        border-radius: 5px;
-        padding: 0 15px;
-        height: 44px;
-        width: 100%;
-        &:focus {
-          border-color: #9eb400;
-        }
-        &:focus + label {
-          position: absolute;
-          top: -6px;
-          padding: 0 4px;
-          background: #fff;
-          font-size: 13px;
-          color: #000;
-          left: 6px;
-          transition: all 0.1s linear;
-        }
-      }
-    }
-    &__name {
-      border: 1px solid rgb(0 0 0 / 44%);
-      border-radius: 5px 0 0 5px;
-      padding: 0 15px;
-      height: 44px;
-      width: 100%;
-      &:focus {
-        border-color: #9eb400;
-      }
-      &:focus + label {
-        position: absolute;
-        top: -6px;
-        padding: 0 4px;
-        background: #fff;
-        font-size: 13px;
-        color: #000;
-        left: 6px;
-        transition: all 0.1s linear;
-      }
-      &_active {
-        border: 1px solid rgb(0 0 0 / 44%);
-        border-radius: 5px 0 0 5px;
-        padding: 0 15px;
-        height: 44px;
-        width: 100%;
-        &:focus {
-          border-color: #9eb400;
-        }
-        &:focus + label {
-          position: absolute;
-          top: -6px;
-          padding: 0 4px;
-          background: #fff;
-          font-size: 13px;
-          color: #000;
-          left: 6px;
-          transition: all 0.1s linear;
-        }
-      }
-    }
-    &__number {
-      border-right: 1px solid rgb(0 0 0 / 44%);
-      border-top: 1px solid rgb(0 0 0 / 44%);
-      border-bottom: 1px solid rgb(0 0 0 / 44%);
-      border-radius: 0 5px 5px 0;
-      padding: 0 15px;
-      height: 44px;
-      width: 100%;
-      &:focus {
-        border-color: #9eb400;
-      }
-      &:focus + label {
-        position: absolute;
-        top: -6px;
-        padding: 0 4px;
-        background: #fff;
-        font-size: 13px;
-        color: #000;
-        left: 6px;
-        transition: all 0.1s linear;
-      }
-      &_active {
-        border-right: 1px solid rgb(0 0 0 / 44%);
-        border-top: 1px solid rgb(0 0 0 / 44%);
-        border-bottom: 1px solid rgb(0 0 0 / 44%);
-        border-radius: 0 5px 5px 0;
-        padding: 0 15px;
-        height: 44px;
-        width: 100%;
-        &:focus {
-          border-color: #9eb400;
-        }
-        &:focus + label {
-          position: absolute;
-          top: -6px;
-          padding: 0 4px;
-          background: #fff;
-          font-size: 13px;
-          color: #000;
-          left: 6px;
-          transition: all 0.1s linear;
-        }
-      }
-    }
-    &__comment {
-      border: 1px solid rgb(0 0 0 / 44%);
-      border-radius: 5px;
-      padding: 0 15px;
-      height: 44px;
-      width: 100%;
-      &:focus {
-        border-color: #9eb400;
-      }
-      &:focus + label {
-        position: absolute;
-        top: -6px;
-        padding: 0 4px;
-        background: #fff;
-        font-size: 13px;
-        color: #000;
-        left: 6px;
-        transition: all 0.1s linear;
-      }
-      &_active {
-        border: 1px solid rgb(0 0 0 / 44%);
-        border-radius: 5px;
-        padding: 0 15px;
-        height: 44px;
-        width: 100%;
-        &:focus {
-          border-color: #9eb400;
-        }
-        &:focus + label {
-          position: absolute;
-          top: -6px;
-          padding: 0 4px;
-          background: #fff;
-          font-size: 13px;
-          color: #000;
-          left: 6px;
-          transition: all 0.1s linear;
-        }
-      }
-    }
-  }
-  .delivery-form__label {
-    position: absolute;
-    color: rgb(0 0 0 / 44%);
-    font-size: 15px;
-    font-weight: 700;
-    left: 15px;
-    top: 14px;
-    transition: all 0.1s linear;
-
-    &_active {
-      position: absolute;
-      top: -6px;
-      padding: 0 4px;
-      background: #fff;
-      font-size: 13px;
-      color: #000;
-      left: 6px;
-      transition: all 0.1s linear;
-      font-weight: 700;
-    }
-  }
+  width: 70%;
+  margin: auto;
+}
+.address-form {
+  display: flex;
+  gap: 5px;
+}
+.switcher {
+  display: flex;
+  align-items: center;
+  height: 54px;
+  justify-content: space-between;
 }
