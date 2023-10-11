@@ -1,7 +1,7 @@
 import { Pizza } from "./Pizza";
 import { Skeleton } from "./Skeleton";
 import { nanoid } from "@reduxjs/toolkit";
-import { useGetSortQuery } from "../../rtk/apiSlice";
+import { useGetPizzasQuery } from "../../rtk/apiSlice";
 import { useSelector } from "react-redux";
 
 export function Main() {
@@ -12,19 +12,21 @@ export function Main() {
   ).toLowerCase();
 
   const category0Filter = (a, b) =>
-    selectedFilter === 0
+    selectedFilter === 1
       ? b.price - a.price
-      : selectedFilter === 1
-      ? a.price - b.price
       : selectedFilter === 2
+      ? a.price - b.price
+      : selectedFilter === 3
       ? b.rating - a.rating
       : a.rating - b.rating;
 
-  const {
-    data: sortPizzas,
-    isFetching,
-    isSuccess,
-  } = useGetSortQuery(selectedSort > 0 ? selectedSort : "");
+  // const {
+  //   data: sortPizzas,
+  //   isFetching,
+  //   isSuccess,
+  // } = useGetSortQuery(selectedSort > 0 ? selectedSort : "");
+
+  const { data: sortPizzas, isFetching, isSuccess } = useGetPizzasQuery();
 
   let content;
 
@@ -37,6 +39,12 @@ export function Main() {
     content = sortPizzas
       .filter((item) => item.title.toLowerCase().includes(searchValue))
       .sort(category0Filter)
+      .filter((item) => {
+        if (selectedSort !== 0) {
+          return item.category === selectedSort;
+        }
+        return true;
+      })
       .map((item) => <Pizza key={nanoid()} props={item} />);
   }
 

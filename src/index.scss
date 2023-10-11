@@ -107,6 +107,11 @@ h6 {
     border-bottom: 1px solid;
   }
 }
+.navigation {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+}
 
 .logo {
   display: flex;
@@ -212,7 +217,7 @@ h6 {
 .basket {
   display: flex;
   align-items: center;
-  flex: 1 0 165px;
+  flex: 0 0 165px;
   &__img {
     width: 21px;
     height: 21px;

@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
-import { sortNum } from "../../rtk/sortSlice";
+import { updateProductCategoriesValue } from "../../rtk/sortSlice";
 import { Link } from "react-router-dom";
 
 export function Menu() {
-  const sortName = [
+  const productCategories = [
     "Все",
     "Мясные",
     "Вегетарианская",
@@ -20,12 +20,12 @@ export function Menu() {
   return (
     <div className="menu">
       <ul className="sorts">
-        {sortName.map((item, index) => (
+        {productCategories.map((item, index) => (
           <Link
             to={"/"}
             key={nanoid()}
             className={`sorts__item${selectedSort === index ? "_active" : ""}`}
-            onClick={() => dispatch(sortNum(index))}
+            onClick={() => dispatch(updateProductCategoriesValue(index))}
           >
             {item}
           </Link>

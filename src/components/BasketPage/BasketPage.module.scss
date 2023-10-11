@@ -21,7 +21,7 @@
   img {
     opacity: 0.5;
   }
-  .iconBasket {
+  .basketIcon {
     display: flex;
     align-items: center;
     img {
@@ -107,6 +107,8 @@
   max-width: 716px;
   align-items: center;
   line-height: 50px;
+  height: 100vh;
+  justify-content: center;
   h1 {
     font-size: 24px;
     font-weight: 500;

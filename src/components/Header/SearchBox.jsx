@@ -1,53 +1,44 @@
-import { useState, useRef, useEffect } from "react";
-import { nanoid } from "@reduxjs/toolkit";
-import { filterNum, addSearchValue } from "../../rtk/sortSlice";
+import { setSortIndex, updateSearchValue } from "../../rtk/sortSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { nanoid } from "@reduxjs/toolkit";
+
+import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
+import { Dropdown, Space, Typography, ConfigProvider } from "antd";
 
 import magnifier from "../../img/free-icon-magnifier-2319177.png";
 
 export function SearchBox() {
-  const popupList = ["цене ▲", "цене ▼", "рейтингу ▲", "рейтингу ▼"];
-
-  const [sort, setSort] = useState("цене ▲");
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const popupRef = useRef(null);
   const dispatch = useDispatch();
 
   const searchValue = useSelector((state) => state.sort.searchValue);
-
-  const togglePopup = () => {
-    setIsPopupOpen(!isPopupOpen);
-  };
-
-  const handleOutsideClick = (e) => {
-    if (popupRef.current && !popupRef.current.contains(e.target)) {
-      setIsPopupOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isPopupOpen) {
-      document.addEventListener("click", handleOutsideClick);
-    }
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, [isPopupOpen]);
-
-  function handleSetFilter(item, index) {
-    setSort(`${item}`);
-    dispatch(filterNum(index));
-  }
+  const filterValue = useSelector((state) => state.sort.filterValue);
 
   function handleInputValue(e) {
-    dispatch(addSearchValue(e.target.value));
+    dispatch(updateSearchValue(e.target.value));
   }
 
-  let content = popupList.map((item, index) => (
-    <li key={nanoid()} onClick={() => handleSetFilter(item, index)}>
-      {item}
-    </li>
-  ));
+  const items = [
+    {
+      key: "1",
+      label: "цене",
+      icon: <CaretUpOutlined />,
+    },
+    {
+      key: "2",
+      label: "цене",
+      icon: <CaretDownOutlined />,
+    },
+    {
+      key: "3",
+      label: "рейтингу",
+      icon: <CaretUpOutlined />,
+    },
+    {
+      key: "4",
+      label: "рейтингу",
+      icon: <CaretDownOutlined />,
+    },
+  ];
 
   return (
     <div className="search">
@@ -69,7 +60,7 @@ export function SearchBox() {
           />
           {searchValue && (
             <svg
-              onClick={() => dispatch(addSearchValue(""))}
+              onClick={() => dispatch(updateSearchValue(""))}
               className="close"
               height="48"
               viewBox="0 0 48 48"
@@ -84,12 +75,42 @@ export function SearchBox() {
       </div>
       <div className="search__sort">
         сортировка по:{" "}
-        <span className="search__popular" onClick={togglePopup} ref={popupRef}>
-          {sort}
-        </span>
-        <div className="test1">
-          {isPopupOpen && <ul className="test">{content}</ul>}
-        </div>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorLink: "#368736c7",
+              colorPrimary: "#368736c7",
+              fontFamily: "Jost",
+            },
+            components: {
+              Dropdown: {
+                itemSelectedColor: "#368736c7",
+                colorPrimary: "green",
+              },
+            },
+          }}
+        >
+          <Dropdown
+            menu={{
+              onSelect: (e) => dispatch(setSortIndex(+e.key)),
+              items,
+              selectable: true,
+              defaultSelectedKeys: ["1"],
+            }}
+          >
+            <Typography.Link>
+              <Space>
+                {items.map((item) =>
+                  +item.key === filterValue ? (
+                    <span key={nanoid()}>
+                      {item.label} {item.icon}
+                    </span>
+                  ) : null
+                )}
+              </Space>
+            </Typography.Link>
+          </Dropdown>
+        </ConfigProvider>
       </div>
     </div>
   );

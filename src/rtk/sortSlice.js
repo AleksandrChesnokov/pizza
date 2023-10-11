@@ -4,22 +4,31 @@ export const sortSlice = createSlice({
   name: "sort",
   initialState: {
     value: 0,
-    filterValue: 0,
+    filterValue: 1,
     searchValue: "",
+    isLoad: false,
   },
   reducers: {
-    sortNum: (state, action) => {
+    updateProductCategoriesValue: (state, action) => {
       state.value = action.payload;
     },
-    filterNum: (state, action) => {
+    setSortIndex: (state, action) => {
       state.filterValue = action.payload;
     },
-    addSearchValue: (state, action) => {
+    updateSearchValue: (state, action) => {
       state.searchValue = action.payload;
+    },
+    toggleInitLoading: (state, action) => {
+      state.isLoad = action.payload;
     },
   },
 });
 
-export const { sortNum, filterNum, addSearchValue } = sortSlice.actions;
+export const {
+  updateProductCategoriesValue,
+  setSortIndex,
+  updateSearchValue,
+  toggleInitLoading,
+} = sortSlice.actions;
 
 export default sortSlice.reducer;

@@ -9,56 +9,55 @@ export const basketSlice = createSlice({
     pizzas: getPizzasLS(),
   },
   reducers: {
-    basket: (state, action) => {
+    addToBasket: (state, action) => {
       const { price, key } = action.payload;
-      if (!state.pizzas[key]) {
+      const pizza = state.pizzas[key];
+      if (!pizza) {
         state.pizzas[key] = action.payload;
-        state.pizzas[key].initialPrice = price;
         state.totalPrice += price;
       } else {
-        state.pizzas[key].count = ++state.pizzas[key].count;
-        state.pizzas[key].price += price;
+        pizza.count += 1;
+        pizza.price += price;
         state.totalPrice += price;
       }
     },
     increment: (state, action) => {
       const { initialPrice, key } = action.payload;
-      for (let prop in state.pizzas) {
-        if (prop === key) {
-          state.pizzas[prop].price += initialPrice;
-          state.pizzas[prop].count = ++state.pizzas[prop].count;
-          state.totalPrice += initialPrice;
-        }
-      }
+      const pizza = state.pizzas[key];
+      pizza.price += initialPrice;
+      pizza.count += 1;
+      state.totalPrice += initialPrice;
     },
     decrement: (state, action) => {
       const { initialPrice, key } = action.payload;
-      for (let prop in state.pizzas) {
-        if (prop === key && state.pizzas[prop].count > 1) {
-          state.pizzas[prop].price -= initialPrice;
-          state.pizzas[prop].count = --state.pizzas[prop].count;
-          state.totalPrice -= initialPrice;
-        }
+      const pizza = state.pizzas[key];
+      if (pizza.count > 1) {
+        pizza.price -= initialPrice;
+        pizza.count -= 1;
+        state.totalPrice -= initialPrice;
       }
     },
-    remove: (state, action) => {
-      for (let prop in state.pizzas) {
-        if (prop === action.payload.key) {
-          state.totalPrice -= state.pizzas[prop].price;
-          delete state.pizzas[prop];
-        }
+    removeFromBasket: (state, action) => {
+      const { key } = action.payload;
+      const pizza = state.pizzas[key];
+      if (pizza) {
+        state.totalPrice -= pizza.initialPrice * pizza.count;
+        delete state.pizzas[key];
       }
     },
-    removeAll: (state) => {
-      for (let prop in state.pizzas) {
-        delete state.pizzas[prop];
-        state.totalPrice = 0;
-      }
+    removeAllFromBasket: (state) => {
+      state.pizzas = {};
+      state.totalPrice = 0;
     },
   },
 });
 
-export const { basket, increment, decrement, remove, removeAll } =
-  basketSlice.actions;
+export const {
+  addToBasket,
+  increment,
+  decrement,
+  removeFromBasket,
+  removeAllFromBasket,
+} = basketSlice.actions;
 
 export default basketSlice.reducer;
