@@ -1,4 +1,10 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setFormData,
+  setErrors,
+  setShowCalendar,
+} from "../../rtk/contactFormSlice";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -28,34 +34,31 @@ const theme = createTheme({
 });
 
 export function ContactInfoForm() {
+  const dispatch = useDispatch();
+  const errors = useSelector((state) => state.contactForm.errors);
+  const showCalendar = useSelector((state) => state.contactForm.showCalendar);
+  const gg = useSelector((state) => state.contactForm);
+  console.log(gg);
+
   const futureDate = dayjs().add(14, "days");
   const today = dayjs();
 
   const [selectedDate, setSelectedDate] = useState(today);
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [formData, setFormData] = useState({});
-  const [errorValueCalendar, setErrorValueCalendar] = useState(null);
-  const [errors, setErrors] = useState({
-    address: "",
-    houseNumber: "",
-    apartment: "",
-    name: "",
-    phone: "",
-    paymentCheckBox: "",
-  });
 
   const minTime = selectedDate.hour(9).minute(0);
   const maxTime = selectedDate.hour(22).minute(59);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    const dateFormat = date.format("DD/MM/YYYY HH:mm:ss");
+    dispatch(setFormData({ selectedDate: dateFormat }));
+    dispatch(setErrors({ selectedDate: false }));
   };
 
-  const handleChangeSwitch = (e) => {
-    if (e.target.checked) {
-      return setShowCalendar(true);
-    }
-    return setShowCalendar(false);
+  const handleChangeSwitch = () => {
+    dispatch(setShowCalendar(!showCalendar));
+    dispatch(setErrors({ selectedDate: false }));
+    dispatch(setFormData({ selectedDate: "" }));
   };
 
   const shouldDisableTime = (value, view) => {
@@ -73,7 +76,11 @@ export function ContactInfoForm() {
       shouldDisableTime={shouldDisableTime}
       disablePast={true}
       maxDate={futureDate}
-      onError={(newError) => setErrorValueCalendar(newError)}
+      slotProps={{
+        textField: {
+          error: errors.selectedDate,
+        },
+      }}
       timeSteps={{ minutes: 15 }}
       label="Выберете дату доставки"
     />
@@ -81,31 +88,31 @@ export function ContactInfoForm() {
 
   const validateHouseNumber = (houseNumber) => {
     if (!houseNumber.trim()) {
-      return "Поле 'Номер дома' обязательно для заполнения.";
+      return 'Поле "Номер дома" обязательно для заполнения.';
     }
     return "";
   };
   const validateAddress = (address) => {
     if (!address.trim()) {
-      return "Поле 'Адресс' обязательно для заполнения.";
+      return 'Поле "Адресс" обязательно для заполнения.';
     }
     return "";
   };
   const validateApartment = (apartment) => {
     if (!apartment.trim()) {
-      return "Поле 'Номер квартиры' обязательно для заполнения.";
+      return 'Поле "Номер квартиры" обязательно для заполнения.';
     }
     return "";
   };
   const validateName = (name) => {
     if (!name.trim()) {
-      return "Поле 'Ваше имя' обязательно для заполнения.";
+      return 'Поле "Ваше имя" обязательно для заполнения.';
     }
     return "";
   };
   const validatePhone = (phone) => {
     if (phone.trim().length < 1) {
-      return "Поле 'Телефон' обязательно для заполнения.";
+      return 'Поле "Телефон" обязательно для заполнения.';
     }
     if (phone.trim().length <= 11) {
       return "Введите корректный номер телефона.";
@@ -116,41 +123,51 @@ export function ContactInfoForm() {
     return "";
   };
 
-  const fu = (name, value, errorMessage) => {
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-
-    setErrors({
-      ...errors,
-      [name]: errorMessage,
-    });
+  const validateCheckBox = (e) => {
+    if (e.target.value) {
+      console.log(e.target.value);
+      dispatch(setFormData({ paymentCheckBox: e.target.value }));
+      dispatch(setErrors({ paymentCheckBox: false }));
+    }
   };
 
-  const fg = (e) => {
+  const updateFormDataAndErrors = (name, value, errorMessage) => {
+    dispatch(
+      setFormData({
+        [name]: value,
+      })
+    );
+
+    dispatch(
+      setErrors({
+        [name]: errorMessage,
+      })
+    );
+  };
+
+  const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     switch (name) {
       case "address":
         const errorAddressMeddage = validateAddress(value);
-        fu(name, value, errorAddressMeddage);
+        updateFormDataAndErrors(name, value, errorAddressMeddage);
         break;
       case "houseNumber":
         const errorHouseNumberMessage = validateHouseNumber(value);
-        fu(name, value, errorHouseNumberMessage);
+        updateFormDataAndErrors(name, value, errorHouseNumberMessage);
         break;
       case "apartment":
         const errorApartment = validateApartment(value);
-        fu(name, value, errorApartment);
+        updateFormDataAndErrors(name, value, errorApartment);
         break;
       case "name":
         const errorName = validateName(value);
-        fu(name, value, errorName);
+        updateFormDataAndErrors(name, value, errorName);
         break;
       case "phone":
         const errorPhone = validatePhone(value);
-        fu(name, value, errorPhone);
+        updateFormDataAndErrors(name, value, errorPhone);
         break;
       default:
         break;
@@ -175,7 +192,7 @@ export function ContactInfoForm() {
             variant="outlined"
             fullWidth={true}
             inputProps={{ maxLength: 35 }}
-            onChange={(e) => fg(e)}
+            onChange={(e) => handleInputChange(e)}
             helperText={errors.address}
             error={!!errors.address}
           />
@@ -187,7 +204,7 @@ export function ContactInfoForm() {
             type="text"
             fullWidth={true}
             inputProps={{ maxLength: 5 }}
-            onChange={(e) => fg(e)}
+            onChange={(e) => handleInputChange(e)}
             error={!!errors.houseNumber}
             helperText={errors.houseNumber}
           />
@@ -199,7 +216,7 @@ export function ContactInfoForm() {
             type="text"
             fullWidth={true}
             inputProps={{ maxLength: 5 }}
-            onChange={(e) => fg(e)}
+            onChange={(e) => handleInputChange(e)}
             error={!!errors.apartment}
             helperText={errors.apartment}
           />
@@ -213,7 +230,7 @@ export function ContactInfoForm() {
             variant="outlined"
             type="text"
             inputProps={{ maxLength: 20 }}
-            onChange={(e) => fg(e)}
+            onChange={(e) => handleInputChange(e)}
             error={!!errors.name}
             helperText={errors.name}
           />
@@ -229,7 +246,7 @@ export function ContactInfoForm() {
             defaultValue="+7"
             type="tel"
             inputProps={{ maxLength: 12 }}
-            onChange={(e) => fg(e)}
+            onChange={(e) => handleInputChange(e)}
             error={!!errors.phone}
             helperText={errors.phone}
           />
@@ -237,7 +254,7 @@ export function ContactInfoForm() {
         <div className="switcher">
           <div>
             К определенному времени
-            <Switch onChange={handleChangeSwitch} />
+            <Switch checked={showCalendar} onChange={handleChangeSwitch} />
           </div>
           {showCalendar && calendar}
         </div>
@@ -248,19 +265,19 @@ export function ContactInfoForm() {
               value="Картой курьеру"
               control={<Radio />}
               label="Картой курьеру"
-              onClick={() => setErrors({ ...errors, paymentCheckBox: false })}
+              onClick={validateCheckBox}
             />
             <FormControlLabel
               value="Картой онлайн"
               control={<Radio />}
               label="Картой онлайн"
-              onClick={() => setErrors({ ...errors, paymentCheckBox: false })}
+              onClick={validateCheckBox}
             />
             <FormControlLabel
               value="Наличными курьеру"
               control={<Radio />}
               label="Наличными курьеру"
-              onClick={() => setErrors({ ...errors, paymentCheckBox: false })}
+              onClick={validateCheckBox}
             />
           </RadioGroup>
         </FormControl>

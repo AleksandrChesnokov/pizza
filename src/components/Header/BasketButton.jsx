@@ -15,16 +15,16 @@ export function BasketButton() {
 
   return (
     <div className="basket">
-      {totalPrice > 0 && (
-        <Link
-          to={"basket"}
-          onClick={() => dispatch(updateProductCategoriesValue(null))}
-          className="basket__button"
-        >
-          <ShoppingCartOutlinedIcon />
+      <Link
+        to={"basket"}
+        onClick={() => dispatch(updateProductCategoriesValue(null))}
+        className="basket__button"
+      >
+        <ShoppingCartOutlinedIcon />
+        {totalPrice ? (
           <span className="basket__price">{totalPrice}₽</span>
-        </Link>
-      )}
+        ) : null}
+      </Link>
     </div>
   );
 }

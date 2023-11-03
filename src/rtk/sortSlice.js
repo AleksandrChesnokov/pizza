@@ -6,7 +6,7 @@ export const sortSlice = createSlice({
     value: 0,
     filterValue: 1,
     searchValue: "",
-    isLoad: false,
+    popup: false,
   },
   reducers: {
     updateProductCategoriesValue: (state, action) => {
@@ -18,8 +18,8 @@ export const sortSlice = createSlice({
     updateSearchValue: (state, action) => {
       state.searchValue = action.payload;
     },
-    toggleInitLoading: (state, action) => {
-      state.isLoad = action.payload;
+    setTogglePopup: (state, action) => {
+      state.popup = action.payload;
     },
   },
 });
@@ -28,7 +28,7 @@ export const {
   updateProductCategoriesValue,
   setSortIndex,
   updateSearchValue,
-  toggleInitLoading,
+  setTogglePopup,
 } = sortSlice.actions;
 
 export default sortSlice.reducer;

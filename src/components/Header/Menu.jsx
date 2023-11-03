@@ -1,9 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
-import { updateProductCategoriesValue } from "../../rtk/sortSlice";
+import {
+  updateProductCategoriesValue,
+  setTogglePopup,
+} from "../../rtk/sortSlice";
 import { Link } from "react-router-dom";
 
 export function Menu() {
+  const popupState = useSelector((state) => state.sort.popup);
+
   const productCategories = [
     "Все",
     "Мясные",
@@ -17,20 +22,28 @@ export function Menu() {
 
   let selectedSort = useSelector((state) => state.sort.value);
 
+  const handleUpdateSorts = (index) => {
+    dispatch(updateProductCategoriesValue(index));
+    dispatch(setTogglePopup(false));
+  };
+
   return (
-    <div className="menu">
-      <ul className="sorts">
+    <nav className="menu">
+      <ul className={popupState ? "sorts_popup" : "sorts"}>
         {productCategories.map((item, index) => (
-          <Link
-            to={"/"}
-            key={nanoid()}
-            className={`sorts__item${selectedSort === index ? "_active" : ""}`}
-            onClick={() => dispatch(updateProductCategoriesValue(index))}
-          >
-            {item}
-          </Link>
+          <li key={nanoid()}>
+            <Link
+              to={"/"}
+              className={`sorts__item${
+                selectedSort === index ? "_active" : ""
+              }`}
+              onClick={() => handleUpdateSorts(index)}
+            >
+              {item}
+            </Link>
+          </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 }

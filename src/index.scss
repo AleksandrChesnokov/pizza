@@ -107,19 +107,19 @@ h6 {
     border-bottom: 1px solid;
   }
 }
-.navigation {
+.navigation,
+.navigation__popup {
   display: flex;
   width: 70%;
   justify-content: center;
 }
 
 .logo {
-  display: flex;
   flex: 0 1 292px;
   &__img {
-    max-width: 78px;
-    max-height: 77px;
+    max-width: 77px;
     margin-left: 10px;
+    transition: all 0.4s ease;
   }
   &__name {
     margin-left: 10px;
@@ -127,10 +127,10 @@ h6 {
     font-weight: 700;
     font-size: 24px;
     min-width: 100px;
+    transition: all 0.4s ease;
   }
   &__anchor {
     display: flex;
-    margin-right: 10px;
     align-items: center;
   }
 }
@@ -199,18 +199,23 @@ h6 {
   align-items: center;
 }
 
-.sorts {
+.sorts,
+.sorts_popup {
   display: flex;
   gap: 3.36vw;
   font-size: 16px;
-  &__item_active {
-    border-bottom: 1px solid;
+  &:first-child {
+    margin-left: 20px;
   }
-  & > a:first-child {
-    margin-left: 10px;
+  li > a {
+    font-weight: 500;
   }
-  &:last-child {
-    margin-right: 10px;
+  li > a:hover {
+    color: forestgreen;
+    transition: color 0.25s ease 0s;
+  }
+  li > &__item_active {
+    color: forestgreen;
   }
 }
 
@@ -218,6 +223,7 @@ h6 {
   display: flex;
   align-items: center;
   flex: 0 0 165px;
+  margin-left: 20px;
   &__img {
     width: 21px;
     height: 21px;
@@ -232,12 +238,16 @@ h6 {
     padding: 10px;
     &:hover {
       background-color: rgba(212, 223, 177, 0.45);
+      transition-property: background-color;
+      transition-duration: 200ms;
+      transition-timing-function: ease-out;
     }
   }
   &__price {
     font-weight: 600;
     font-size: 18px;
     margin-left: 5px;
+    transition: all 0.4s ease;
   }
 }
 
@@ -258,19 +268,19 @@ h6 {
 .pizza-card {
   display: flex;
   flex-direction: column;
-  &__pizza-name {
-    display: flex;
-    justify-content: center;
-    font-weight: 500;
-    font-size: 16px;
-  }
   &__img {
     width: 205px;
-    height: 205px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+}
+
+.pizza-selection-box__pizza-name {
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .pizza-selector {
@@ -349,6 +359,9 @@ h6 {
     &:hover {
       cursor: pointer;
       background-color: rgba(212, 223, 177, 0.45);
+      transition-property: background-color;
+      transition-duration: 200ms;
+      transition-timing-function: ease-out;
     }
   }
   &__price {
@@ -363,27 +376,6 @@ h6 {
   border-radius: 5px;
   margin-bottom: 6px;
 }
-
-.test {
-  // Нужно изменить класс для фильтрации
-  position: absolute;
-  min-width: 130px;
-  min-height: 100px;
-  background-color: rgba(250, 250, 250, 0.9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  left: 107px;
-  top: 5px;
-  border: 1px solid;
-}
-
-.test1 {
-  position: relative;
-}
-
 .close {
   max-width: 29px;
   max-height: 29px;
@@ -413,10 +405,244 @@ h6 {
 .address-form {
   display: flex;
   gap: 5px;
+  @media screen and (max-width: 540px) {
+    flex-direction: column;
+  }
 }
 .switcher {
   display: flex;
   align-items: center;
   height: 54px;
   justify-content: space-between;
+  @media screen and (max-width: 540px) {
+    flex-direction: column;
+    height: auto;
+  }
+}
+@media screen and (max-width: 1260px) {
+  .sorts {
+    gap: 2.36vw;
+    &:last-child {
+      margin-right: 20px;
+    }
+    &:first-child {
+      margin-left: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .basket__price {
+    font-size: 16px;
+  }
+  .logo__img {
+    max-width: 50px;
+  }
+  .logo__name {
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 1071px) {
+  .modal-wrapper,
+  .modal-wrapper_active,
+  .menu__burger_active,
+  .menu__burger {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1070px) {
+  .logo {
+    flex: 0 1 185px;
+    margin-left: 60px;
+  }
+  .navigation {
+    justify-content: flex-start;
+  }
+  .menu {
+    flex: 0 1 auto;
+  }
+  .modal-wrapper {
+    display: none;
+  }
+
+  .search {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 1 auto;
+  }
+  .menu__burger,
+  .menu__burger_active {
+    display: block;
+    height: 3px;
+    height: 21px;
+    position: absolute;
+    margin: 0 20px 0 20px;
+    flex: 0 0;
+    width: 30px;
+
+    & > span {
+      height: 3px;
+      background-color: black;
+      top: 9px;
+      width: 100%;
+      display: block;
+      position: absolute;
+      transition: all 0.4s ease;
+    }
+  }
+  .menu__burger::after,
+  .menu__burger::before,
+  .menu__burger_active::before,
+  .menu__burger_active::after {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: black;
+    position: absolute;
+    transition: all 0.4s ease;
+  }
+  .menu__burger::after {
+    bottom: 0px;
+  }
+  .menu__burger::before {
+    top: 0px;
+  }
+  .menu__burger_active::before {
+    top: 9px;
+    transform: rotate(45deg);
+  }
+  .menu__burger_active::after {
+    transform: rotate(-45deg);
+    bottom: 9px;
+  }
+  .menu__burger_active > span {
+    transform: scale(0);
+  }
+
+  .sorts_popup {
+    flex-direction: column;
+    gap: 25px;
+    &:first-child {
+      margin-left: 0px;
+    }
+  }
+
+  .navigation {
+    position: fixed;
+    left: -1000px;
+    top: 81px;
+    width: 45vw;
+    height: calc(100vh - 80px);
+    background-color: rgb(250, 250, 250);
+    overflow: auto;
+    font-size: 16px;
+    gap: 25px;
+    transition: all 0.4s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    & > li {
+      padding: 10px;
+    }
+  }
+
+  .navigation__popup {
+    position: fixed;
+    left: 0px;
+    top: 81px;
+    width: 45vw;
+    height: calc(100vh - 80px);
+    background-color: rgb(250, 250, 250);
+    overflow: auto;
+    font-size: 16px;
+    gap: 25px;
+    transition: all 0.4s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    & > li {
+      padding: 10px;
+    }
+  }
+
+  .modal-wrapper_active {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    right: 0;
+    top: 80px;
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+@media screen and (max-width: 760px) {
+  .main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .basket {
+    flex: 0 0 auto;
+    margin: 0px 20px 0px 20px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .main {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    padding: 90px 0px 30px 0px;
+  }
+  .navigation__popup {
+    top: 66px;
+    height: calc(100vh - 65px);
+  }
+  .modal-wrapper_active {
+    top: 65px;
+  }
+  .header {
+    min-height: 65px;
+  }
+  .menu__burger {
+    margin: 0 10px 0 10px;
+  }
+  .logo__img {
+    margin: 0px;
+  }
+  .basket {
+    margin: 0px 10px 0px 10px;
+  }
+  .menu__burger_active {
+    margin: 0px 10px 0px 10px;
+  }
+  .pizza-selection-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 205px;
+  }
+  .pizza-card {
+    flex-direction: row;
+  }
+  .pizza-card__img {
+    min-height: 150px;
+    width: 150px;
+  }
+  .search-box__input-container {
+    min-width: 120px;
+  }
+  .search__input {
+    max-width: 90px;
+    left: 0px;
+    position: absolute;
+    margin-left: 2px;
+  }
 }

@@ -10,8 +10,7 @@ import magnifier from "../../img/free-icon-magnifier-2319177.png";
 export function SearchBox() {
   const dispatch = useDispatch();
 
-  const searchValue = useSelector((state) => state.sort.searchValue);
-  const filterValue = useSelector((state) => state.sort.filterValue);
+  const { searchValue, filterValue } = useSelector((state) => state.sort);
 
   function handleInputValue(e) {
     dispatch(updateSearchValue(e.target.value));

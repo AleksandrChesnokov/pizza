@@ -1,20 +1,36 @@
+import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import styles from "./BasketPage.module.scss";
 import { removeAllFromBasket } from "../../rtk/basketSlice";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { setErrors } from "../../rtk/contactFormSlice";
 import { PizzaInCard } from "./PizzaInCard";
 import { ContactInfoForm } from "./ContactInfoForm";
 
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
+const errors = {
+  address: 'Поле "Адресс" обязательно для заполнения.',
+  apartment: 'Поле "Номер квартиры" обязательно для заполнения.',
+  houseNumber: 'Поле "Номер дома" обязательно для заполнения.',
+  name: 'Поле "Ваше имя" обязательно для заполнения.',
+  paymentCheckBox: true,
+  phone: 'Поле "Телефон" обязательно для заполнения.',
+  selectedDate: true,
+};
+
 export function Card() {
   const dispatch = useDispatch();
-  const itemsInBasket = useSelector((state) => state.basket.pizzas);
-  const totalPrice = useSelector((state) => state.basket.totalPrice);
+  const { pizzas, totalPrice } = useSelector((state) => state.basket);
+  const formData = useSelector((state) => state.contactForm);
 
-  const [modalActive, setModalActive] = useState(false);
+  const handleCheckedForm = () => {
+    Object.entries(formData.formData).forEach(([key, value]) => {
+      if (!value) {
+        dispatch(setErrors({ [key]: errors[key] }));
+      }
+    });
+  };
 
   return (
     <div className={styles.root}>
@@ -27,7 +43,7 @@ export function Card() {
         </div>
         <div
           className={styles.dltButton}
-          onClick={() => dispatch(removeAllFromBasket(itemsInBasket))}
+          onClick={() => dispatch(removeAllFromBasket(pizzas))}
         >
           <DeleteOutlineOutlinedIcon
             sx={{ height: 30, width: 30, color: "#00000082" }}
@@ -36,8 +52,8 @@ export function Card() {
         </div>
       </div>
       <div>
-        {Object.keys(itemsInBasket).map((key) => (
-          <PizzaInCard key={nanoid()} prop={itemsInBasket[key]} />
+        {Object.values(pizzas).map((pizza) => (
+          <PizzaInCard key={nanoid()} prop={pizza} />
         ))}
       </div>
       <div className={styles.total}>
@@ -49,14 +65,7 @@ export function Card() {
         <ContactInfoForm />
       </div>
       <div className={styles.buttonOrder}>
-        <button onClick={() => setModalActive(!modalActive)}>
-          Оформить заказ
-        </button>
-        {modalActive && (
-          <div className={styles.order}>
-            <div className={styles.modal}></div>
-          </div>
-        )}
+        <button onClick={handleCheckedForm}>Оформить заказ</button>
       </div>
     </div>
   );

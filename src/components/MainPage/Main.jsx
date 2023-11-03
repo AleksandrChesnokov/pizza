@@ -11,7 +11,7 @@ export function Main() {
     (state) => state.sort.searchValue
   ).toLowerCase();
 
-  const category0Filter = (a, b) =>
+  const sortPizzasByFilter = (a, b) =>
     selectedFilter === 1
       ? b.price - a.price
       : selectedFilter === 2
@@ -38,10 +38,12 @@ export function Main() {
   } else if (isSuccess) {
     content = sortPizzas
       .filter((item) => item.title.toLowerCase().includes(searchValue))
-      .sort(category0Filter)
+      .sort(sortPizzasByFilter)
       .filter((item) => {
-        if (selectedSort !== 0) {
+        if (selectedSort !== 0 && selectedSort !== null) {
           return item.category === selectedSort;
+        } else if (selectedSort == null) {
+          return true;
         }
         return true;
       })
@@ -49,10 +51,10 @@ export function Main() {
   }
 
   return (
-    <div className="main-container">
+    <main className="main-container">
       <div className={`${content.length > 0 ? "main" : "notFound"}`}>
         {content.length > 0 ? content : notFoundContent}
       </div>
-    </div>
+    </main>
   );
 }
