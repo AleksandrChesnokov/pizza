@@ -9,9 +9,13 @@ export function Header() {
   const dispatch = useDispatch();
   const popupState = useSelector((state) => state.sort.popup);
 
+  const handleHideMenu = () => dispatch(setTogglePopup(!popupState));
+  console.log(popupState);
+
   return (
     <header className="header">
       <div
+        onClick={handleHideMenu}
         className={popupState ? "modal-wrapper_active" : "modal-wrapper"}
       ></div>
       <div
