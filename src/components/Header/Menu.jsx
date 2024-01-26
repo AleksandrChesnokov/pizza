@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { nanoid } from "@reduxjs/toolkit";
 import {
   updateProductCategoriesValue,
   setTogglePopup,
@@ -31,7 +30,7 @@ export function Menu() {
     <nav className="menu">
       <ul className={popupState ? "sorts_popup" : "sorts"}>
         {productCategories.map((item, index) => (
-          <li key={nanoid()}>
+          <li key={item}>
             <Link
               to={"/"}
               className={`sorts__item${

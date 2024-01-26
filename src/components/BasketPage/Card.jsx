@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from "react-redux";
-import { nanoid } from "@reduxjs/toolkit";
 import styles from "./BasketPage.module.scss";
 import { removeAllFromBasket } from "../../rtk/basketSlice";
 import { setErrors } from "../../rtk/contactFormSlice";
@@ -52,8 +51,8 @@ export function Card() {
         </div>
       </div>
       <div>
-        {Object.values(pizzas).map((pizza) => (
-          <PizzaInCard key={nanoid()} prop={pizza} />
+        {Object.values(pizzas).map((pizza, index) => (
+          <PizzaInCard key={index} prop={pizza} />
         ))}
       </div>
       <div className={styles.total}>

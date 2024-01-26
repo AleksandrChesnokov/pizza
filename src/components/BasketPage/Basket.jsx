@@ -3,7 +3,7 @@ import { EmptyCard } from "./EmptyCard";
 import { Card } from "./Card";
 
 export function Basket() {
-  const hasItems = useSelector((state) => state.basket.pizzas);
+  const pizzas = useSelector((state) => state.basket.pizzas);
 
-  return <>{Object.keys(hasItems).length > 0 ? <Card /> : <EmptyCard />}</>;
+  return <>{Object.keys(pizzas).length > 0 ? <Card /> : <EmptyCard />}</>;
 }

@@ -37,8 +37,6 @@ export function ContactInfoForm() {
   const dispatch = useDispatch();
   const errors = useSelector((state) => state.contactForm.errors);
   const showCalendar = useSelector((state) => state.contactForm.showCalendar);
-  const gg = useSelector((state) => state.contactForm);
-  console.log(gg);
 
   const futureDate = dayjs().add(14, "days");
   const today = dayjs();

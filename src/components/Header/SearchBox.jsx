@@ -1,6 +1,5 @@
 import { setSortIndex, updateSearchValue } from "../../rtk/sortSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { nanoid } from "@reduxjs/toolkit";
 
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 import { Dropdown, Space, Typography, ConfigProvider } from "antd";
@@ -101,7 +100,7 @@ export function SearchBox() {
               <Space>
                 {items.map((item) =>
                   +item.key === filterValue ? (
-                    <span key={nanoid()}>
+                    <span key={item.key + item.label}>
                       {item.label} {item.icon}
                     </span>
                   ) : null
