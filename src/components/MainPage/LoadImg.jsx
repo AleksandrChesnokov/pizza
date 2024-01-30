@@ -2,7 +2,6 @@ import { useState, memo, useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export const LoadImg = memo(function Load({ urlImg }) {
-  const [ready, setReady] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
 
   useEffect(() => {
@@ -28,7 +27,6 @@ export const LoadImg = memo(function Load({ urlImg }) {
         }
         let blob = new Blob([chunksAll], { type: "image/jpeg" });
         setImageSrc(URL.createObjectURL(blob));
-        setReady(true);
       } catch (error) {
         console.error("Error loading image:", error);
       }
@@ -38,7 +36,7 @@ export const LoadImg = memo(function Load({ urlImg }) {
 
   return (
     <>
-      {ready ? (
+      {imageSrc ? (
         <img src={imageSrc} alt="pizza" className="pizza-card__img" />
       ) : (
         <div className="pizza-card__img">
